@@ -1,4 +1,4 @@
-package com.zerobase.lms;
+package com.zerobase.lms.main.controller;
 
 import com.zerobase.lms.components.MailComponents;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class MainController {
         String subject = "안녕하세요. 김수환입니다.";
         String text = "<p>안녕하세요.</p><p>반갑습니다.</p>";
 
-        mailComponents.sendMail(email, subject, text);
+//        mailComponents.sendMail(email, subject, text);
         return "index";
     }
 }
