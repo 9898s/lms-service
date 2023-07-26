@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원 로그인</title>
 </head>
 <body>
 <h1>회원 로그인</h1>
+<div th:replace="/fragments/layout.html :: fragment-body-menu">
+</div>
 
 <div th:text="${errorMessage}"></div>
 
@@ -20,5 +22,8 @@
         <button type="submit">로그인</button>
     </div>
 </form>
+<div>
+    <a href="/member/find/password">비밀번호 찾기</a>
+</div>
 </body>
 </html>
