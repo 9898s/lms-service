@@ -1,4 +1,4 @@
-package com.zerobase.lms.admin;
+package com.zerobase.lms.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
