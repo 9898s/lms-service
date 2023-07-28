@@ -1,10 +1,16 @@
 package com.zerobase.lms.course.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 @Entity
 public class Course {
@@ -24,4 +30,7 @@ public class Course {
     long price;
     long salePrice;
     LocalDateTime saleEndDt;
+
+    LocalDateTime regDt; // 등록일
+    LocalDateTime udtDt; // 수정일
 }
