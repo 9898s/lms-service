@@ -34,16 +34,71 @@
         <table>
             <tbody>
             <tr>
-                <th>강좌명:</th>
+                <th>강좌 카테고리</th>
                 <td>
-                    <input type="text" name="subject" placeholder="강좌명 입력" required/>
+                    <select name="categoryId" required>
+                        <option value="">카테고리 선택</option>
+                        <option
+                                th:selected="${detail.categoryId == x.id}"
+                                th:each="x : ${category}" th:value="${x.id}" th:text="${x.categoryName}"></option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th>강좌명</th>
+                <td>
+                    <input th:value="${detail.subject}" type="text" name="subject" placeholder="강좌명 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>키워드</th>
+                <td>
+                    <input th:value="${detail.keyword}" type="text" name="keyword" placeholder="키워드 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>요약문구</th>
+                <td>
+                    <textarea th:text="${detail.summary}" name="summary" placeholder="요약문구 입력" required></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <th>내용</th>
+                <td>
+                    <textarea th:text="${detail.contents}" name="contents" placeholder="내용 입력" required></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <th>정가</th>
+                <td>
+                    <input th:value="${detail.price}" type="text" name="price" placeholder="정가 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>판매가</th>
+                <td>
+                    <input th:value="${detail.salePrice}" type="text" name="salePrice" placeholder="판매가 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>할인 종료일</th>
+                <td>
+                    <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력"/>
                 </td>
             </tr>
             </tbody>
         </table>
 
         <div class="buttons">
-            <button type="submit">강좌 등록하기</button>
+            <button th:if="${editMode}" type="submit">강좌 수정하기</button>
+            <button th:if="${!editMode}" type="submit">강좌 등록하기</button>
             <a href="/admin/course/list.do">목록 이동</a>
         </div>
     </form>
