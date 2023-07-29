@@ -21,6 +21,10 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
+            $('#submitForm').on('submit', function () {
+                // 에디터의 내용이 textarea에 적용된다.
+                oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+            });
         })
     </script>
 </head>
@@ -30,7 +34,7 @@
 </div>
 
 <div class="detail">
-    <form method="post">
+    <form id="submitForm" method="post">
         <table>
             <tbody>
             <tr>
@@ -69,7 +73,7 @@
             <tr>
                 <th>내용</th>
                 <td>
-                    <textarea th:text="${detail.contents}" name="contents" placeholder="내용 입력" required></textarea>
+                    <textarea th:text="${detail.contents}" id="contents" name="contents" placeholder="내용 입력"></textarea>
                 </td>
             </tr>
 
@@ -103,5 +107,16 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var oEditors = [];
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: oEditors,
+        elPlaceHolder: "contents",
+        sSkinURI: "/res/se2/SmartEditor2Skin.html",
+        fCreator: "createSEditor2"
+    });
+</script>
 </body>
 </html>
