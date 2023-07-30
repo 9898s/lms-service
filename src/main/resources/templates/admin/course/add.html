@@ -34,7 +34,7 @@
 </div>
 
 <div class="detail">
-    <form id="submitForm" method="post">
+    <form id="submitForm" method="post" enctype="multipart/form-data">
         <table>
             <tbody>
             <tr>
@@ -95,6 +95,13 @@
                 <th>할인 종료일</th>
                 <td>
                     <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="할인 종료일 입력"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>첨부 파일</th>
+                <td>
+                    <input type="file" name="file"/>
                 </td>
             </tr>
             </tbody>
