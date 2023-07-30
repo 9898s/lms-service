@@ -3,6 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 정보</title>
+    <style>
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list table th, .list table td {
+            border: solid 1px #000;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('.row-buttons button').on('click', function () {
+                var id = $(this).val();
+
+                var msg = '수강취소 처리 하시겠습니까?';
+                if (!confirm(msg)) {
+                    return false;
+                }
+
+                var url = '/api/member/course/cancel.api';
+                var parameter = {
+                    takeCourseId: id
+                };
+
+                axios.post(url, parameter).then(function (response) {
+                    console.log(response);
+                    console.log(response.data);
+
+                    response.data = response.data || {};
+                    response.data.header = response.data.header || {};
+
+                    if (!response.data.header.result) {
+                        alert(response.data.header.message);
+                        return false;
+                    }
+
+                    // 정상적일때
+                    alert('강좌가 정상적으로 취소되었습니다.');
+                    location.reload();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
 <h1>회원 정보</h1>
@@ -18,6 +68,35 @@
     <hr/>
 </div>
 
-<div th:text="${detail}"></div>
+<div class="list">
+    <table>
+        <thead>
+        <tr>
+            <th>NO</th>
+            <th>등록일</th>
+            <th>강좌명</th>
+            <th>상태</th>
+            <th>비고</th>
+        </tr>
+        </thead>
+        <tbody id="dataList">
+        <tr th:each="x, i : ${list}">
+            <td th:text="${i.index + 1}">1</td>
+            <td th:text="${x.regDtText}">2023.07.30</td>
+            <td th:text="${x.subject}">강좌명</td>
+            <td>
+                <p th:if="${x.status eq 'REQ'}">수강신청</p>
+                <p th:if="${x.status eq 'COMPLETE'}">결재완료</p>
+                <p th:if="${x.status eq 'CANCEL'}">수강취소</p>
+            </td>
+            <td>
+                <div class="row-buttons" th:if="${x.status eq 'REQ'}">
+                    <button value="CANCEL" type="button" th:value="${x.id}">수강취소 처리</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

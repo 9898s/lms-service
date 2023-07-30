@@ -1,7 +1,9 @@
 package com.zerobase.lms.member.controller;
 
 import com.zerobase.lms.admin.dto.MemberDto;
+import com.zerobase.lms.course.dto.TakeCourseDto;
 import com.zerobase.lms.course.model.ServiceResult;
+import com.zerobase.lms.course.service.TakeCourseService;
 import com.zerobase.lms.member.model.MemberInput;
 import com.zerobase.lms.member.model.ResetPasswordInput;
 import com.zerobase.lms.member.service.MemberService;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
     private final MemberService memberService;
+    private final TakeCourseService takeCourseService;
 
     @RequestMapping("/member/login")
     public String login() {
@@ -135,9 +139,10 @@ public class MemberController {
     @GetMapping("/member/takecourse")
     public String memberTakeCourse(Model model, Principal principal) {
         String userId = principal.getName();
-        MemberDto detail = memberService.detail(userId);
 
-        model.addAttribute("detail", detail);
+        List<TakeCourseDto> list = takeCourseService.myCourse(userId);
+
+        model.addAttribute("list", list);
         return "member/takecourse";
     }
 }
