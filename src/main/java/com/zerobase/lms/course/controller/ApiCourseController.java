@@ -1,7 +1,6 @@
 package com.zerobase.lms.course.controller;
 
 import com.zerobase.lms.common.model.ResponseResult;
-import com.zerobase.lms.common.model.ResponseResultHeader;
 import com.zerobase.lms.course.model.ServiceResult;
 import com.zerobase.lms.course.model.TakeCourseInput;
 import com.zerobase.lms.course.service.CourseService;
