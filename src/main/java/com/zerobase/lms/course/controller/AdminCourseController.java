@@ -117,7 +117,7 @@ public class AdminCourseController extends BaseController {
         if (file != null) {
             String originalFilename = file.getOriginalFilename();
 
-            String baseLocalPath = "/Users/suhwan/IdeaProjects/lms/files";
+            String baseLocalPath = "/Users/suhwan/IdeaProjects/lms/src/main/webapp/files";
             String baseUrlPath = "/files";
 
             String[] arrFilename = getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);

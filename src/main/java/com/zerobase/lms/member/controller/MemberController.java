@@ -7,7 +7,6 @@ import com.zerobase.lms.course.service.TakeCourseService;
 import com.zerobase.lms.member.model.MemberInput;
 import com.zerobase.lms.member.model.ResetPasswordInput;
 import com.zerobase.lms.member.service.MemberService;
-import com.zerobase.lms.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
