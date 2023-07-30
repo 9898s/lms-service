@@ -3,6 +3,8 @@ package com.zerobase.lms.course.service;
 import com.zerobase.lms.course.dto.CourseDto;
 import com.zerobase.lms.course.model.CourseInput;
 import com.zerobase.lms.course.model.CourseParam;
+import com.zerobase.lms.course.model.ServiceResult;
+import com.zerobase.lms.course.model.TakeCourseInput;
 
 import java.util.List;
 
@@ -41,4 +43,9 @@ public interface CourseService {
      * 프론트 강좌 상세 정보
      */
     CourseDto frontDetail(long id);
+
+    /**
+     * 수강 신청
+     */
+    ServiceResult req(TakeCourseInput parameter);
 }
