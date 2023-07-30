@@ -3,17 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>회원 정보</title>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $('#updateForm').on('submit', function () {
-                if (!confirm('회원 정보를 수정하시겠습니까?')) {
-                    return false;
-                }
-            });
-        });
-    </script>
 </head>
 <body>
 <h1>회원 정보</h1>
@@ -73,7 +62,7 @@
             <tr>
                 <th>회원정보 수정일</th>
                 <td>
-                    <p th:text="${detail.udtDtText}">가입일</p>
+                    <p th:text="${detail.udtDtText}">수정일</p>
                 </td>
             </tr>
             </tbody>
@@ -81,6 +70,7 @@
 
         <div>
             <button type="submit">수정</button>
+            <a href="/member/withdraw">회원 탈퇴</a>
         </div>
     </form>
 </div>
