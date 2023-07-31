@@ -1,22 +1,25 @@
 package com.zerobase.lms.main.controller;
 
-import com.zerobase.lms.components.MailComponents;
+import com.zerobase.lms.admin.dto.BannerDto;
+import com.zerobase.lms.admin.model.BannerParam;
+import com.zerobase.lms.admin.service.BannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class MainController {
-    private final MailComponents mailComponents;
+    private final BannerService bannerService;
 
     @RequestMapping("/")
-    public String index() {
-        String email = "sueh9898@naver.com";
-        String subject = "안녕하세요. 김수환입니다.";
-        String text = "<p>안녕하세요.</p><p>반갑습니다.</p>";
+    public String index(Model model, BannerParam parameter) {
+        List<BannerDto> bannerList = bannerService.showList(parameter);
 
-//        mailComponents.sendMail(email, subject, text);
+        model.addAttribute("list", bannerList);
         return "index";
     }
 

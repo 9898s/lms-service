@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".slider").bxSlider({
+                touchEnabled : (navigator.maxTouchPoints > 0)
+            });
+        });
+    </script>
 </head>
 <body>
 <h1>메인 페이지</h1>
 <div th:replace="/fragments/layout.html :: fragment-body-menu">
 </div>
 
-<div>
-    <img src="/files/2023/07/31/0b66090e883c49cdb90123652fa81724.png"/>
+<div class="home__slider">
+    <div class="slider">
+        <div th:each="x : ${list}">
+            <div th:if="${x.showYn == true}">
+                <a th:href="${x.bannerUrl}" th:if="${x.openCase == 1}" target="_blank">
+                    <img th:src="${x.urlFilename}" th:alt="${x.bannerName}" height="200" style="display: block; margin: auto;"/>
+                </a>
+                <a th:href="${x.bannerUrl}" th:if="${x.openCase == 2}">
+                    <img th:src="${x.urlFilename}" th:alt="${x.bannerName}" height="200" style="display: block; margin: auto;"/>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면</title>
+    <style>
+        .detail table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .detail table th, .detail table td {
+            border: solid 1px #000;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>배너 관리 - 배너 등록</h1>
+<div th:replace="/fragments/layout.html :: fragment-admin-body-menu">
+</div>
+
+<div class="detail">
+    <form id="submitForm" method="post" enctype="multipart/form-data">
+        <table>
+            <tbody>
+            <tr>
+                <th>배너명</th>
+                <td>
+                    <input th:value="${detail.bannerName}" type="text" name="bannerName" placeholder="배너명 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>배너 파일</th>
+                <td>
+                    <input type="file" name="file"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>링크 주소</th>
+                <td>
+                    <input th:value="${detail.bannerUrl}" type="text" name="bannerUrl" placeholder="링크 주소 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>오픈 방법</th>
+                <td>
+                    <select name="openCase" required>
+                        <option value="">오픈 방법 선택</option>
+                        <option th:selected="${detail.openCase == 1}" value="1">새 창 이동</option>
+                        <option th:selected="${detail.openCase == 2}" value="2">현재 창 이동</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th>정렬 순서</th>
+                <td>
+                    <input th:value="${detail.sortValue}" type="text" name="sortValue" placeholder="정렬 순서 입력" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>공개 여부</th>
+                <td>
+                    <label>
+                        <input th:checked="${detail.showYn}" type="checkbox" name="showYn"/> 공개
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons">
+            <button th:if="${editMode}" type="submit">강좌 수정하기</button>
+            <button th:if="${!editMode}" type="submit">강좌 등록하기</button>
+            <a href="/admin/banner/list.do">목록 이동</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
