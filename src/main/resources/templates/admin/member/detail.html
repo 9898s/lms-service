@@ -90,9 +90,29 @@
         </tr>
         </tbody>
     </table>
+
     <div>
         <a href="list.do">목록</a>
     </div>
+    <br/>
+    <table>
+        <thead>
+        <tr style="background-color: #000; color: #fff;">
+            <th>NO</th>
+            <th>로그인 일자</th>
+            <th>접속 IP</th>
+            <th>접속 UserAgent</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="x, i : ${histories}" style="text-align: center;">
+            <td th:text="${histories.size() - i.index}"></td>
+            <td th:text="${x.logDtText}"></td>
+            <td th:text="${x.ip}"></td>
+            <td th:text="${x.agent}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

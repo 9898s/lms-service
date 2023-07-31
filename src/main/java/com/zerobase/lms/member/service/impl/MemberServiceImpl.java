@@ -247,7 +247,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = optionalMember.get();
 
-        if (PasswordUtils.equals(parameter.getPassword(), member.getPassword())) {
+        if (!PasswordUtils.equals(parameter.getPassword(), member.getPassword())) {
             return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
         }
 
@@ -313,6 +313,9 @@ public class MemberServiceImpl implements MemberService {
         if (member.isAdminYn()) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
+
+        member.setLogDt(LocalDateTime.now());
+        memberRepository.save(member);
         return new User(member.getUserId(), member.getPassword(), grantedAuthorities);
     }
 }

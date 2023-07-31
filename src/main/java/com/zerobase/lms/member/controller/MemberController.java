@@ -4,10 +4,14 @@ import com.zerobase.lms.admin.dto.MemberDto;
 import com.zerobase.lms.course.dto.TakeCourseDto;
 import com.zerobase.lms.course.model.ServiceResult;
 import com.zerobase.lms.course.service.TakeCourseService;
+import com.zerobase.lms.member.model.MemberHistoryInput;
 import com.zerobase.lms.member.model.MemberInput;
 import com.zerobase.lms.member.model.ResetPasswordInput;
+import com.zerobase.lms.member.service.MemberHistoryService;
 import com.zerobase.lms.member.service.MemberService;
+import com.zerobase.lms.util.RequestUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +21,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
     private final MemberService memberService;
     private final TakeCourseService takeCourseService;
+    private final MemberHistoryService memberHistoryService;
 
     @RequestMapping("/member/login")
     public String login() {
         return "member/login";
+    }
+
+    @RequestMapping("/member/success")
+    public String success(HttpServletRequest request, Principal principal) {
+        String userAgent = RequestUtils.getUserAgent(request);
+        String ip = RequestUtils.getClientIp(request);
+
+        MemberHistoryInput memberHistoryInput = new MemberHistoryInput();
+        memberHistoryInput.setUserId(principal.getName());
+        memberHistoryInput.setLogDt(LocalDateTime.now());
+        memberHistoryInput.setIp(ip);
+        memberHistoryInput.setAgent(userAgent);
+
+        memberHistoryService.save(memberHistoryInput);
+        return "redirect:/";
     }
 
     @GetMapping("member/find/password")

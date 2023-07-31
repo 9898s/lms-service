@@ -1,9 +1,11 @@
 package com.zerobase.lms.admin.controller;
 
 import com.zerobase.lms.admin.dto.MemberDto;
+import com.zerobase.lms.admin.dto.MemberHistoryDto;
 import com.zerobase.lms.admin.model.MemberInput;
 import com.zerobase.lms.admin.model.MemberParam;
 import com.zerobase.lms.course.controller.BaseController;
+import com.zerobase.lms.member.service.MemberHistoryService;
 import com.zerobase.lms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import java.util.List;
 @Controller
 public class AdminMemberController extends BaseController {
     private final MemberService memberService;
+    private final MemberHistoryService memberHistoryService;
 
     @GetMapping("/admin/member/list.do")
     public String list(Model model, MemberParam parameter) {
@@ -44,6 +47,9 @@ public class AdminMemberController extends BaseController {
 
         MemberDto member = memberService.detail(parameter.getUserId());
         model.addAttribute("member", member);
+
+        List<MemberHistoryDto> histories = memberHistoryService.list(parameter.getUserId());
+        model.addAttribute("histories", histories);
         return "admin/member/detail";
     }
 
